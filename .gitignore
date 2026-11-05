@@ -1,0 +1,6 @@
+.bundle/
+vendor/bundle/
+coverage/
+synthetic-mailbox/
+*.log
+.DS_Store

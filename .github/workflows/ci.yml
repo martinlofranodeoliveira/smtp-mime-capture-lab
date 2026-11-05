@@ -1,0 +1,22 @@
+name: Test
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  ruby:
+    runs-on: ubuntu-latest
+    container: ruby:3.4-bookworm
+    timeout-minutes: 8
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Install locked dependencies
+        run: bundle install --jobs 2 --retry 2
+      - name: Test
+        run: bundle exec ruby test/all_test.rb
+      - name: Assert offline demo
+        run: bundle exec ruby bin/demo.rb
+      - name: Machine-readable demo
+        run: bundle exec ruby bin/demo.rb --json
